@@ -1,0 +1,25 @@
+import requests
+from bs4 import BeautifulSoup
+from random import *
+def CALL(username,password):
+ url = "https://www.sbyb.net/ajax-login"
+ session = requests.Session()
+ login_page = session.get("https://www.sbyb.net/login")
+ soup = BeautifulSoup(login_page.content, 'html.parser')
+ token = soup.find('input', {'name': '_token'})['value']
+ data = {
+     "_token": token,
+     "username": username,
+     "password": password,
+     "remember": "on"
+ }
+ headers = {
+     "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36",
+     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+     "X-Requested-With": "XMLHttpRequest",
+     "Referer": "https://www.sbyb.net/login",
+ }
+ response = session.post(url, data=data, headers=headers)
+ 
+  
+CALL("","")
